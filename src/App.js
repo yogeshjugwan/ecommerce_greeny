@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Navbar from './common/Navbar';
+import Home from './components/home/Home';
+import Backdrop from './common/Backdrop';
+import Footer from './common/Footer';
+import MobileNav from './common/MobileNav';
+import Register from './components/authentication/Register';
+import Login from './components/authentication/Login';
+import ChangePassword from './components/authentication/ChangePassword';
 function App() {
+  const [sideNav, setSideNav] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Backdrop setSideNav={setSideNav} sideNav={sideNav}/>
+        <Navbar setSideNav={setSideNav} sideNav={sideNav} />
+        <MobileNav setSideNav={setSideNav} sideNav={sideNav} />
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route exact path='/register' element={<Register/>} />
+          <Route exact path='/login' element={<Login/>} />
+          <Route exact path='/change-password' element={<ChangePassword/>} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
   );
 }
 
